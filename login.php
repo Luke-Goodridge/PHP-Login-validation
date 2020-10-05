@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\map;
+
 define("REQUIRED_FIELD_ERROR", "This field is required");
 $errors = [];
 
@@ -7,6 +10,8 @@ $email = "";
 $password = "";
 $confirmPassword = "";
 $cv_link = "";
+
+$post = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = post_data("username");
@@ -39,6 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($errors)) {
         echo "Everything is good.";
+        $post["username"] = $username;
+        $post["email"] = $email;
+        $post["cv_link"] = $cv_link;
     }
 }
 
@@ -114,6 +122,13 @@ function post_data($value)
         </div>
         <button class="btn btn-primary">Register</button>
     </form>
+    <div>
+        <ul>
+            <li>USERNAME: <?php echo $post["username"] ??= "" ?></li>
+            <li>EMAIL: <?php echo $post["email"] ??= "" ?></li>
+            <li>CV LINK: <?php echo $post["cv_link"] ??= "" ?></li>
+        </ul>
+    </div>
 </body>
 
 </html>
